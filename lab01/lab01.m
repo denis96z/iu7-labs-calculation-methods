@@ -61,21 +61,22 @@ endfunction
 
 function cSIZ = getPrimarySIZ(c)
   [n, _] = size(c);
-  cSIZ = zeros(n, n);
+  cSIZ = ones(n, n);
   for i = 1:n
     for j = 1:n
       if c(j,i) == 0
         rowHasZero = false;
         
         for k = 1:n
-          if cSIZ(j,k) == 1
+          if cSIZ(j,k) == 0
             rowHasZero = true;
             break;
           endif
         endfor
         
         if !rowHasZero
-          cSIZ(j,i) = 1;
+          cSIZ(j,i) = 0;
+          break;
         endif
       endif
     endfor
