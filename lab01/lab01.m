@@ -14,6 +14,12 @@ function lab01()
   cSIZ = getPrimarySIZ(c);
   printf("Third step:\n");
   disp(cSIZ);
+  
+  if !solutionIsFound(cSIZ)
+    cSel = selectItems(cSIZ);
+    printf("Fourth step:\n");
+    disp(cSel);
+  endif
 endfunction
 
 function c = readMatrix()
@@ -80,5 +86,39 @@ function cSIZ = getPrimarySIZ(c)
         endif
       endif
     endfor
+  endfor
+endfunction
+
+function f = solutionIsFound(cSIZ)
+  [n, _] = size(cSIZ);
+  counter = 0;
+  for i = 1:n
+    for j = 1:n
+      if cSIZ(i,j) == 0
+        counter++;
+      endif
+    endfor
+  endfor
+  f = counter == n;
+endfunction
+
+function cSel = selectItems(cSIZ)
+  [n, _] = size(cSIZ);
+  cSel = zeros(n, n);
+  
+  for i = 1:n
+    shouldBeSelected = false;
+    for j = 1:n
+      if cSIZ(j,i) == 0
+        shouldBeSelected = true;
+        break;
+      endif
+    endfor
+    
+    if shouldBeSelected
+      for j = 1:n
+        cSel(j,i) = 1;
+      endfor
+    endif
   endfor
 endfunction
